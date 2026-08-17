@@ -1,0 +1,1714 @@
+/* =========================================================
+   EDAVAPPATHI — BOTTLED FIRST RAIN
+   CARD CRAFT
+   Pure HTML + CSS
+   Actual product canvas: 400 × 500 px
+========================================================= */
+
+
+/* =========================================================
+   ROOT
+========================================================= */
+
+:root {
+  --night: #031415;
+  --night-soft: #061f20;
+
+  --teal-deep: #083536;
+  --teal: #0c4b4c;
+  --teal-light: #176667;
+
+  --gold: #c7a33b;
+  --gold-light: #f0d77b;
+  --gold-dark: #725a16;
+
+  --paper: #f1e8d0;
+  --cream: #e8dfc6;
+
+  --muted: #a8c1c0;
+  --white-soft: #dce9e6;
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+
+  background:
+    radial-gradient(
+      circle at 50% 38%,
+      rgba(17, 82, 82, 0.35),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at 82% 65%,
+      rgba(125, 110, 35, 0.10),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 12% 15%,
+      rgba(21, 84, 84, 0.16),
+      transparent 30%
+    ),
+    linear-gradient(
+      145deg,
+      #061d1e 0%,
+      #031415 52%,
+      #010a0b 100%
+    );
+
+  color: var(--paper);
+
+  font-family:
+    "Space Mono",
+    "Courier New",
+    monospace;
+
+  overflow-x: hidden;
+}
+
+
+/* =========================================================
+   MAIN EXPERIENCE
+========================================================= */
+
+.experience {
+  position: relative;
+
+  width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   AMBIENT LIGHT
+========================================================= */
+
+.ambient {
+  position: fixed;
+
+  width: 420px;
+  height: 420px;
+
+  border-radius: 50%;
+
+  pointer-events: none;
+
+  filter: blur(110px);
+
+  opacity: 0.15;
+}
+
+.ambient-one {
+  top: 8%;
+  left: 15%;
+
+  background: #1c7777;
+}
+
+.ambient-two {
+  right: 5%;
+  bottom: 0;
+
+  background: #b0922d;
+
+  opacity: 0.07;
+}
+
+
+/* =========================================================
+   BACKGROUND RAIN
+========================================================= */
+
+.rain-field {
+  position: fixed;
+
+  inset: -150px;
+
+  pointer-events: none;
+
+  opacity: 0.08;
+
+  background-image:
+    repeating-linear-gradient(
+      110deg,
+      transparent 0,
+      transparent 42px,
+      rgba(190, 224, 221, 0.42) 43px,
+      transparent 44px
+    );
+
+  background-size: 100px 100px;
+
+  transform: rotate(-4deg);
+
+  animation:
+    backgroundRain 11s linear infinite;
+}
+
+@keyframes backgroundRain {
+  from {
+    transform:
+      translateY(-90px)
+      rotate(-4deg);
+  }
+
+  to {
+    transform:
+      translateY(90px)
+      rotate(-4deg);
+  }
+}
+
+
+/* =========================================================
+   PRODUCT STAGE
+   STRICT INTERNAL SIZE = 400 × 500
+
+   Kept free of any animation of its own — the responsive
+   media queries below set `transform: scale(...)` on this
+   element, and a competing keyframe animation on the same
+   property would silently break that scaling on small
+   screens. All motion (float, tilt) lives on .product-card
+   instead, one level in.
+========================================================= */
+
+.product-stage {
+  position: relative;
+
+  width: 400px;
+  height: 500px;
+
+  flex: 0 0 400px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  perspective: 1400px;
+}
+
+
+/* =========================================================
+   STAGE GLOW
+========================================================= */
+
+.stage-glow {
+  position: absolute;
+
+  width: 520px;
+  height: 620px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(26, 105, 104, 0.25),
+      transparent 68%
+    );
+
+  filter: blur(25px);
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   PRODUCT CARD
+   EXACTLY 400 × 500 PX
+========================================================= */
+
+.product-card {
+  position: relative;
+
+  width: 400px;
+  height: 500px;
+
+  flex: 0 0 400px;
+
+  border-radius: 24px;
+
+  overflow: hidden;
+
+  isolation: isolate;
+
+  transform:
+    rotateX(0deg)
+    rotateY(0deg)
+    translateY(0);
+
+  transform-style: preserve-3d;
+
+  transition:
+    transform 0.6s cubic-bezier(.22, .8, .3, 1),
+    box-shadow 0.6s ease;
+
+  background:
+    radial-gradient(
+      circle at 50% 108%,
+      rgba(0, 0, 0, 0.40),
+      transparent 58%
+    ),
+    repeating-linear-gradient(
+      112deg,
+      rgba(255, 255, 255, 0.018) 0,
+      rgba(255, 255, 255, 0.018) 1px,
+      transparent 1px,
+      transparent 18px
+    ),
+    linear-gradient(
+      150deg,
+      #145b5c 0%,
+      #0a4748 30%,
+      #073638 65%,
+      #031e20 100%
+    );
+
+  box-shadow:
+    0 45px 80px rgba(0, 0, 0, 0.60),
+    0 18px 35px rgba(0, 0, 0, 0.40),
+    inset 0 0 0 1px rgba(237, 247, 241, 0.10);
+
+  z-index: 5;
+}
+
+.product-card:hover {
+  transform:
+    rotateX(2deg)
+    rotateY(-2.5deg)
+    translateY(-5px);
+
+  box-shadow:
+    0 55px 95px rgba(0, 0, 0, 0.65),
+    0 22px 40px rgba(0, 0, 0, 0.45),
+    inset 0 0 0 1px rgba(237, 247, 241, 0.14);
+}
+
+
+/* =========================================================
+   CARD HIGHLIGHT
+========================================================= */
+
+.product-card::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  border-radius: inherit;
+
+  background:
+    linear-gradient(
+      125deg,
+      rgba(255, 255, 255, 0.13),
+      transparent 18%,
+      transparent 70%,
+      rgba(255, 255, 255, 0.035)
+    );
+
+  pointer-events: none;
+
+  z-index: 12;
+}
+
+
+/* =========================================================
+   INNER BORDER
+========================================================= */
+
+.product-card::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 1px;
+
+  border-radius: 23px;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.055);
+
+  pointer-events: none;
+
+  z-index: 30;
+}
+
+
+/* =========================================================
+   CARD TEXTURE
+========================================================= */
+
+.card-noise {
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  opacity: 0.13;
+
+  background:
+    repeating-linear-gradient(
+      112deg,
+      rgba(255, 255, 255, 0.07) 0,
+      rgba(255, 255, 255, 0.07) 1px,
+      transparent 1px,
+      transparent 17px
+    );
+
+  z-index: 1;
+}
+
+
+/* =========================================================
+   CARD RAIN
+========================================================= */
+
+.card-rain {
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  opacity: 0.12;
+
+  background-image:
+    repeating-linear-gradient(
+      110deg,
+      transparent 0,
+      transparent 21px,
+      rgba(204, 230, 226, 0.26) 22px,
+      transparent 23px
+    );
+
+  background-size:
+    100% 55px;
+
+  animation:
+    cardRain 7s linear infinite;
+
+  z-index: 2;
+}
+
+@keyframes cardRain {
+  from {
+    background-position-y: 0;
+  }
+
+  to {
+    background-position-y: 55px;
+  }
+}
+
+
+/* =========================================================
+   PAPER LABEL
+========================================================= */
+
+.paper-label {
+  position: absolute;
+
+  top: 30px;
+  left: -8px;
+
+  width: 138px;
+
+  padding:
+    10px
+    14px
+    12px;
+
+  background:
+    linear-gradient(
+      165deg,
+      #f5eedc,
+      #ded4b6
+    );
+
+  color: #27312e;
+
+  transform: rotate(-6deg);
+
+  box-shadow:
+    0 10px 20px
+    rgba(0, 0, 0, 0.28);
+
+  z-index: 20;
+
+  font-size: 8px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.10em;
+
+  text-align: center;
+
+  transition:
+    transform 0.5s cubic-bezier(.22, .8, .3, 1);
+}
+
+.product-card:hover .paper-label {
+  transform:
+    rotate(-4deg)
+    translateY(-2px);
+}
+
+.paper-label::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(40, 40, 20, 0.035) 4px
+    );
+
+  pointer-events: none;
+}
+
+.paper-label .malayalam {
+  display: block;
+
+  margin-bottom: 4px;
+
+  font-family:
+    "Noto Sans Malayalam",
+    "Nirmala UI",
+    "Kartika",
+    sans-serif;
+
+  font-size: 14px;
+
+  letter-spacing: 0;
+
+  color: #27312e;
+
+  font-weight: 600;
+}
+
+.label-line {
+  display: block;
+
+  width: 48px;
+  height: 1px;
+
+  margin:
+    5px
+    auto;
+
+  background:
+    rgba(38, 48, 45, 0.35);
+}
+
+
+/* =========================================================
+   GOLD COLLECTOR SEAL
+========================================================= */
+
+.collector-seal {
+  position: absolute;
+
+  top: 27px;
+  right: 24px;
+
+  width: 74px;
+  height: 74px;
+
+  border-radius: 50%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+
+  background:
+    radial-gradient(
+      circle at 32% 25%,
+      #f9e6a0,
+      #d2ae3e 43%,
+      #a17c1d 73%,
+      #6c5010 100%
+    );
+
+  color: #352805;
+
+  transform: rotate(8deg);
+
+  box-shadow:
+    0 10px 22px
+      rgba(0, 0, 0, 0.32),
+
+    inset 0 0 0 1px
+      rgba(255, 255, 255, 0.45),
+
+    inset 0 -5px 9px
+      rgba(73, 51, 5, 0.25);
+
+  z-index: 20;
+
+  transition:
+    transform 0.5s cubic-bezier(.22, .8, .3, 1);
+
+  text-shadow:
+    0 1px 1px
+    rgba(255, 235, 150, 0.25);
+}
+
+.product-card:hover .collector-seal {
+  transform:
+    rotate(1deg)
+    scale(1.06);
+}
+
+.collector-seal span {
+  font-size: 7px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.12em;
+}
+
+.collector-seal strong {
+  font-family:
+    "Fraunces",
+    Georgia,
+    serif;
+
+  font-size: 21px;
+
+  line-height: 21px;
+}
+
+.collector-seal small {
+  font-size: 6px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.08em;
+}
+
+
+/* =========================================================
+   VERTICAL ARCHIVE MARK
+
+   Restructured into a full-height spine that runs the
+   height of the card rather than floating beside the
+   bottle — reads as an intentional archive/ledger device
+   instead of a stray label.
+========================================================= */
+
+.vertical-mark {
+  position: absolute;
+
+  right: 18px;
+  top: 118px;
+  bottom: 74px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: space-between;
+
+  color:
+    rgba(220, 238, 232, 0.55);
+
+  font-size: 6px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.20em;
+
+  writing-mode:
+    vertical-rl;
+
+  text-shadow:
+    0 1px 5px
+    rgba(0, 0, 0, 0.65);
+
+  z-index: 10;
+
+  opacity: 0.85;
+
+  transition: opacity 0.5s ease;
+}
+
+.product-card:hover .vertical-mark {
+  opacity: 1;
+}
+
+.vertical-mark span:first-child {
+  color: rgba(240, 216, 123, 0.75);
+}
+
+.vertical-mark i {
+  display: block;
+
+  width: 1px;
+
+  flex: 1 1 auto;
+  min-height: 24px;
+
+  margin: 10px 0;
+
+  background:
+    linear-gradient(
+      180deg,
+      transparent,
+      rgba(219, 190, 67, 0.55) 20%,
+      rgba(219, 190, 67, 0.55) 80%,
+      transparent
+    );
+}
+
+
+/* =========================================================
+   BOTTLE AREA
+========================================================= */
+
+.bottle-area {
+  position: absolute;
+
+  top: 76px;
+  left: 50%;
+
+  width: 230px;
+  height: 250px;
+
+  transform:
+    translateX(-50%)
+    translateZ(45px)
+    scale(0.82);
+
+  transform-origin: top center;
+
+  z-index: 8;
+}
+
+
+/* =========================================================
+   BOTTLE SHADOW
+========================================================= */
+
+.bottle-shadow {
+  position: absolute;
+
+  bottom: 1px;
+  left: 50%;
+
+  width: 155px;
+  height: 28px;
+
+  transform:
+    translateX(-50%);
+
+  border-radius: 50%;
+
+  background:
+    rgba(0, 0, 0, 0.48);
+
+  filter: blur(15px);
+}
+
+
+/* =========================================================
+   BOTTLE
+========================================================= */
+
+.bottle {
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  filter:
+    drop-shadow(
+      0 18px 18px
+      rgba(0, 0, 0, 0.25)
+    );
+
+  transition:
+    transform 0.25s ease-out;
+}
+
+
+/* =========================================================
+   BOTTLE CAP
+========================================================= */
+
+.bottle-cap {
+  position: relative;
+
+  width: 108px;
+  height: 21px;
+
+  border-radius:
+    7px
+    7px
+    4px
+    4px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #f4d878,
+      #c8a232 46%,
+      #846515 100%
+    );
+
+  box-shadow:
+    inset 0 2px 3px
+      rgba(255, 255, 255, 0.45),
+
+    inset 0 -3px 4px
+      rgba(65, 45, 4, 0.35),
+
+    0 5px 9px
+      rgba(0, 0, 0, 0.30);
+
+  z-index: 5;
+}
+
+.cap-highlight {
+  position: absolute;
+
+  top: 3px;
+  left: 13px;
+
+  width: 80px;
+  height: 3px;
+
+  border-radius: 50%;
+
+  background:
+    rgba(255, 255, 255, 0.48);
+
+  filter: blur(1px);
+}
+
+
+/* =========================================================
+   BOTTLE NECK
+========================================================= */
+
+.bottle-neck {
+  position: relative;
+
+  width: 70px;
+  height: 21px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(126, 191, 190, 0.22),
+      rgba(235, 255, 249, 0.22),
+      rgba(31, 101, 101, 0.28)
+    );
+
+  border-left:
+    1px solid
+    rgba(255, 255, 255, 0.22);
+
+  border-right:
+    1px solid
+    rgba(255, 255, 255, 0.12);
+
+  z-index: 4;
+}
+
+.neck-reflection {
+  position: absolute;
+
+  left: 11px;
+
+  width: 5px;
+  height: 100%;
+
+  background:
+    rgba(255, 255, 255, 0.25);
+
+  filter: blur(2px);
+}
+
+
+/* =========================================================
+   GLASS BODY
+========================================================= */
+
+.glass-body {
+  position: relative;
+
+  width: 190px;
+  height: 190px;
+
+  overflow: hidden;
+
+  border-radius:
+    25px
+    25px
+    32px
+    32px;
+
+  background:
+    linear-gradient(
+      115deg,
+      rgba(209, 255, 249, 0.23),
+      rgba(39, 124, 124, 0.27) 32%,
+      rgba(2, 53, 55, 0.46) 75%
+    );
+
+  border:
+    1px solid
+    rgba(211, 248, 239, 0.34);
+
+  box-shadow:
+    inset 11px 0 20px
+      rgba(255, 255, 255, 0.07),
+
+    inset -13px 0 23px
+      rgba(0, 0, 0, 0.14),
+
+    inset 0 1px 3px
+      rgba(255, 255, 255, 0.32);
+}
+
+
+/* =========================================================
+   GLASS DEPTH
+========================================================= */
+
+.glass-depth {
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      75deg,
+      rgba(255, 255, 255, 0.15),
+      transparent 25%,
+      transparent 70%,
+      rgba(255, 255, 255, 0.08)
+    );
+
+  z-index: 7;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   LIQUID
+
+   Reworked so the wave layers share the same base colour
+   as the liquid fill beneath them — the hard seam that
+   read as a "blob" is now a continuous, glassy surface.
+========================================================= */
+
+.liquid {
+  position: absolute;
+
+  left: -10%;
+  bottom: -2px;
+
+  width: 120%;
+  height: 66%;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      180deg,
+      #1a7170 0%,
+      #135d5e 22%,
+      #0b4b4d 58%,
+      #073a3c 100%
+    );
+
+  box-shadow:
+    inset 0 8px 15px
+      rgba(68, 160, 157, 0.20);
+}
+
+/* soft glossy highlight riding the surface */
+.liquid::before {
+  content: "";
+
+  position: absolute;
+
+  top: 4px;
+  left: 12%;
+
+  width: 46%;
+  height: 10px;
+
+  border-radius: 50%;
+
+  background:
+    rgba(210, 245, 240, 0.22);
+
+  filter: blur(3px);
+
+  z-index: 6;
+}
+
+.liquid-wave {
+  position: absolute;
+
+  left: -20%;
+  top: -26px;
+
+  width: 200%;
+  height: 56px;
+
+  border-radius: 45%;
+
+  background:
+    linear-gradient(
+      180deg,
+      #1c7f7e,
+      #135d5e 75%
+    );
+}
+
+.wave-one {
+  opacity: 0.95;
+
+  animation:
+    waveMove 6.5s
+    cubic-bezier(.45, .05, .55, .95)
+    infinite alternate;
+}
+
+.wave-two {
+  top: -20px;
+
+  opacity: 0.4;
+
+  animation:
+    waveMoveTwo 9s
+    cubic-bezier(.45, .05, .55, .95)
+    infinite alternate;
+}
+
+@keyframes waveMove {
+  from {
+    transform:
+      translateX(-14px)
+      rotate(0.6deg);
+  }
+
+  to {
+    transform:
+      translateX(14px)
+      rotate(-0.6deg);
+  }
+}
+
+@keyframes waveMoveTwo {
+  from {
+    transform:
+      translateX(12px);
+  }
+
+  to {
+    transform:
+      translateX(-16px);
+  }
+}
+
+
+/* =========================================================
+   GLASS REFLECTIONS
+========================================================= */
+
+.glass-reflection {
+  position: absolute;
+
+  pointer-events: none;
+
+  z-index: 8;
+
+  transform:
+    skewX(-10deg);
+}
+
+.reflection-one {
+  left: 20px;
+  top: -10px;
+
+  width: 25px;
+  height: 220px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.23),
+      transparent
+    );
+
+  filter: blur(1px);
+}
+
+.reflection-two {
+  right: 20px;
+  top: 20px;
+
+  width: 8px;
+  height: 125px;
+
+  background:
+    rgba(220, 255, 249, 0.12);
+
+  filter: blur(3px);
+}
+
+
+/* =========================================================
+   BOTTLE SHINE
+========================================================= */
+
+.bottle-shine {
+  position: absolute;
+
+  top: -20%;
+  left: -55%;
+
+  width: 36%;
+  height: 150%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.40),
+      transparent
+    );
+
+  transform:
+    skewX(-18deg);
+
+  z-index: 10;
+
+  pointer-events: none;
+
+  transition:
+    left 1.1s
+    cubic-bezier(.2, .8, .2, 1);
+}
+
+.product-card:hover .bottle-shine {
+  left: 130%;
+}
+
+
+/* =========================================================
+   LIQUID PARTICLES
+========================================================= */
+
+.particle {
+  position: absolute;
+
+  bottom: 18px;
+
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background:
+    rgba(218, 245, 238, 0.75);
+
+  box-shadow:
+    0 0 7px
+    rgba(180, 240, 230, 0.30);
+
+  opacity: 0;
+
+  z-index: 9;
+
+  animation:
+    particleRise 4.6s ease-in infinite;
+}
+
+.particle-one {
+  left: 25%;
+
+  animation-delay:
+    0.3s;
+}
+
+.particle-two {
+  left: 52%;
+
+  width: 3px;
+  height: 3px;
+
+  animation-delay:
+    1.5s;
+}
+
+.particle-three {
+  left: 70%;
+
+  width: 4px;
+  height: 4px;
+
+  animation-delay:
+    2.5s;
+}
+
+.particle-four {
+  left: 40%;
+
+  width: 3px;
+  height: 3px;
+
+  animation-delay:
+    3.1s;
+}
+
+@keyframes particleRise {
+  0% {
+    transform:
+      translateY(0);
+
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 0.75;
+  }
+
+  85% {
+    opacity: 0.25;
+  }
+
+  100% {
+    transform:
+      translateY(-120px);
+
+    opacity: 0;
+  }
+}
+
+
+/* =========================================================
+   PRODUCT INFORMATION
+========================================================= */
+
+.product-info {
+  position: absolute;
+
+  left: 20px;
+  right: 20px;
+
+  top: 290px;
+
+  text-align: center;
+
+  z-index: 15;
+
+  text-shadow:
+    0 1px 8px rgba(0, 0, 0, 0.35);
+}
+
+
+/* MONSOON ARCHIVE */
+
+.eyebrow {
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  gap: 9px;
+
+  margin-bottom: 10px;
+
+  font-size: 7px;
+
+  line-height: 1;
+
+  font-weight: 700;
+
+  letter-spacing: 0.24em;
+
+  color: rgba(238, 243, 232, 0.92);
+
+  text-shadow:
+    0 1px 5px rgba(0, 0, 0, 0.8);
+}
+
+.eyebrow span {
+  width: 22px;
+  height: 1px;
+
+  background:
+    rgba(240, 210, 100, 0.95);
+}
+
+
+/* PRODUCT NAME */
+
+.product-info h1 {
+  margin: 0;
+
+  font-family:
+    "Fraunces",
+    Georgia,
+    serif;
+
+  font-size: 46px;
+
+  font-weight: 600;
+
+  font-style: italic;
+
+  line-height: 0.95;
+
+  letter-spacing: -0.035em;
+
+  color: #f4ead2;
+
+  text-shadow:
+    0 3px 10px rgba(0, 0, 0, 0.45);
+}
+
+
+/* TAGLINE */
+
+.tagline {
+  margin-top: 10px;
+
+  line-height: 1;
+
+  text-transform: uppercase;
+
+  font-size: 8px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.24em;
+
+  color: #d5e4df;
+
+  text-shadow:
+    0 1px 7px rgba(0, 0, 0, 0.85);
+}
+
+
+/* =========================================================
+   SPECIFICATIONS
+========================================================= */
+
+.specifications {
+  margin-top: 16px;
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  gap: 16px;
+
+  height: 27px;
+}
+
+.spec {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 3px;
+
+  min-width: 43px;
+}
+
+.spec span {
+  font-size: 7px;
+
+  line-height: 1;
+
+  font-weight: 700;
+
+  letter-spacing: 0.14em;
+
+  color:
+    rgba(220, 233, 228, 0.88);
+
+  text-shadow:
+    0 1px 5px rgba(0, 0, 0, 0.85);
+}
+
+.spec strong {
+  font-size: 9px;
+
+  line-height: 1;
+
+  font-weight: 700;
+
+  letter-spacing: 0.08em;
+
+  color:
+    #f2d66d;
+
+  text-shadow:
+    0 1px 6px rgba(0, 0, 0, 0.85);
+}
+
+.separator {
+  width: 1px;
+
+  height: 22px;
+
+  flex: 0 0 1px;
+
+  background:
+    rgba(224, 231, 221, 0.42);
+}
+
+
+/* =========================================================
+   RESERVE BUTTON
+========================================================= */
+
+.reserve-button {
+  position: absolute;
+
+  left: 50%;
+
+  top: 428px;
+
+  bottom: auto;
+
+  transform:
+    translateX(-50%);
+
+  width: 190px;
+
+  height: 34px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 10px;
+
+  padding: 0 18px;
+
+  border:
+    1px solid
+    rgba(240, 205, 80, 0.95);
+
+  border-radius: 999px;
+
+  background:
+    rgba(199, 163, 59, 0.09);
+
+  color:
+    #f2d873;
+
+  font-family:
+    "Space Mono",
+    "Courier New",
+    monospace;
+
+  font-size: 9px;
+
+  font-weight: 700;
+
+  line-height: 1;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.13em;
+
+  white-space: nowrap;
+
+  text-shadow:
+    0 1px 6px rgba(0, 0, 0, 0.75);
+
+  box-shadow:
+    inset 0 0 12px
+      rgba(199, 163, 59, 0.025),
+
+    0 5px 16px
+      rgba(0, 0, 0, 0.14);
+
+  z-index: 20;
+
+  transition:
+    background 0.4s cubic-bezier(.4, 0, .2, 1),
+    color 0.4s cubic-bezier(.4, 0, .2, 1),
+    transform 0.4s cubic-bezier(.4, 0, .2, 1),
+    box-shadow 0.4s cubic-bezier(.4, 0, .2, 1);
+}
+
+.reserve-button:hover {
+  background:
+    #c7a33b;
+
+  color:
+    #201907;
+
+  border-color:
+    #efd77a;
+
+  text-shadow: none;
+
+  box-shadow:
+    0 10px 25px
+    rgba(199, 163, 59, 0.20);
+
+  transform:
+    translateX(-50%)
+    translateY(-3px);
+}
+
+.button-icon {
+  font-size: 6px;
+}
+
+.arrow {
+  opacity: 0.8;
+
+  transition:
+    transform 0.3s ease;
+}
+
+.reserve-button:hover .arrow {
+  transform:
+    translate(3px, -3px);
+}
+
+
+/* =========================================================
+   BOTTOM DESCRIPTION
+========================================================= */
+
+.story {
+  position: absolute;
+
+  left: 30px;
+  right: 30px;
+
+  bottom: 12px;
+
+  text-align: center;
+
+  font-size: 7px;
+
+  font-weight: 600;
+
+  line-height: 1.45;
+
+  letter-spacing: 0.035em;
+
+  color:
+    rgba(231, 239, 233, 0.78);
+
+  text-shadow:
+    0 1px 7px rgba(0, 0, 0, 0.9);
+
+  z-index: 18;
+}
+
+
+/* =========================================================
+   BOTTOM-RIGHT COORDINATES
+========================================================= */
+
+.serial {
+  position: absolute;
+
+  right: 16px;
+  bottom: 17px;
+
+  font-size: 6px;
+
+  font-weight: 600;
+
+  line-height: 1.6;
+
+  letter-spacing: 0.10em;
+
+  color:
+    rgba(226, 238, 231, 0.62);
+
+  text-shadow:
+    0 1px 7px rgba(0, 0, 0, 0.85);
+
+  text-align: right;
+
+  z-index: 19;
+}
+
+
+/* =========================================================
+   TEXT READABILITY BOOST
+========================================================= */
+
+.product-info::before {
+  content: "";
+
+  position: absolute;
+
+  left: 5%;
+  right: 5%;
+
+  top: -8px;
+  bottom: -10px;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(2, 25, 26, 0.18),
+      transparent 72%
+    );
+
+  pointer-events: none;
+
+  z-index: -1;
+}
+
+
+
+
+/* =========================================================
+   RESPONSIVE SCALING
+
+   The card itself NEVER changes from 400 × 500.
+   Only the visual presentation scales down.
+========================================================= */
+
+
+/* =========================================================
+   SMALL SCREENS
+========================================================= */
+
+@media (max-width: 424px) {
+
+  .experience {
+    padding: 12px;
+    min-height: 100svh;
+  }
+
+  .product-stage {
+    transform:
+      scale(
+        calc((100vw - 24px) / 400)
+      );
+
+    transform-origin:
+      center center;
+  }
+}
+
+
+/* =========================================================
+   SHORT SCREENS
+========================================================= */
+
+@media (max-height: 524px) {
+
+  .product-stage {
+    transform:
+      scale(
+        calc((100vh - 24px) / 500)
+      );
+
+    transform-origin:
+      center center;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media (max-width: 340px) {
+
+  .experience {
+    padding: 8px;
+  }
+
+  .product-stage {
+    transform:
+      scale(
+        calc((100vw - 16px) / 400)
+      );
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+
+    animation-duration:
+      0.01ms !important;
+
+    animation-iteration-count:
+      1 !important;
+
+    transition-duration:
+      0.01ms !important;
+  }
+}
